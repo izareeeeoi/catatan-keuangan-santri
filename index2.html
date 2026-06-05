@@ -8,26 +8,13 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d1117;
-  --bg2:#161b22;
-  --bg3:#21262d;
-  --card:#1c2128;
-  --border:#30363d;
-  --text:#e6edf3;
-  --muted:#8b949e;
-  --accent:#58a6ff;
-  --green:#3fb950;
-  --red:#f85149;
-  --gold:#d29922;
-  --purple:#bc8cff;
-  --teal:#39d353;
-  --radius:14px;
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--card:#1c2128;--border:#30363d;
+  --text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950;
+  --red:#f85149;--gold:#d29922;--purple:#bc8cff;--radius:14px;
 }
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 h1,h2,h3{font-family:'Syne',sans-serif}
-
-/* HEADER */
-.header{background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 50%,#0d1117 100%);border-bottom:1px solid var(--border);padding:20px 24px;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.header{background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 50%,#0d1117 100%);border-bottom:1px solid var(--border);padding:20px 24px;position:sticky;top:0;z-index:100}
 .header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:12px}
 .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
@@ -37,49 +24,39 @@ h1,h2,h3{font-family:'Syne',sans-serif}
 .hstat{text-align:right}
 .hstat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
 .hstat-value{font-size:18px;font-weight:700;font-family:'Syne',sans-serif}
-
-/* MAIN */
+.sync-status{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:6px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:20px}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.sync-dot.online{background:var(--green);animation:pulse 2s infinite}
+.sync-dot.syncing{background:var(--gold);animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .main{max-width:1200px;margin:0 auto;padding:24px}
-
-/* SANTRI LIST */
 .santri-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:32px}
 .santri-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 12px;cursor:pointer;transition:all .2s;text-align:center;position:relative;overflow:hidden}
 .santri-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple));opacity:0;transition:.2s}
 .santri-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.santri-card:hover::before{opacity:1}
+.santri-card:hover::before,.santri-card.active::before{opacity:1}
 .santri-card.active{border-color:var(--accent);background:#1c2a3a}
-.santri-card.active::before{opacity:1}
 .santri-avatar{width:48px;height:48px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;font-family:'Syne',sans-serif;color:#fff}
 .santri-name{font-size:14px;font-weight:600;margin-bottom:4px}
 .santri-balance{font-size:13px;font-weight:700}
 .santri-balance.pos{color:var(--green)}
 .santri-balance.neg{color:var(--red)}
 .alert-dot{position:absolute;top:10px;right:10px;width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.3)}}
-
-/* DETAIL VIEW */
 .detail{display:none}
 .detail.show{display:block}
 .back-btn{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:14px;color:var(--muted);cursor:pointer;margin-bottom:20px;transition:.2s;font-family:inherit}
 .back-btn:hover{color:var(--text);border-color:var(--accent)}
-
 .detail-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
 .detail-avatar{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;font-family:'Syne',sans-serif;color:#fff;flex-shrink:0}
 .detail-info h2{font-size:28px;font-weight:800;letter-spacing:-1px}
 .detail-info p{color:var(--muted);font-size:14px;margin-top:2px}
-
-/* STATS ROW */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px}
 .stat-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px}
-.stat-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.stat-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
 .stat-value{font-size:24px;font-weight:800;font-family:'Syne',sans-serif;line-height:1}
 .stat-sub{font-size:12px;color:var(--muted);margin-top:4px}
-
-/* CONTENT GRID */
 .content-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 @media(max-width:768px){.content-grid{grid-template-columns:1fr}}
-
-/* SECTION CARD */
 .section-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .section-head{padding:16px 18px 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .section-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
@@ -90,8 +67,6 @@ h1,h2,h3{font-family:'Syne',sans-serif}
 .badge-purple{background:#241a2e;color:var(--purple)}
 .badge-blue{background:#1a2535;color:var(--accent)}
 .section-body{padding:0 18px 18px}
-
-/* FORM INPUTS */
 .form-group{margin-bottom:12px}
 .form-label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block;font-weight:500;text-transform:uppercase;letter-spacing:0.3px}
 .form-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s}
@@ -108,8 +83,7 @@ h1,h2,h3{font-family:'Syne',sans-serif}
 .btn-blue{background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff}
 .btn-blue:hover{background:linear-gradient(135deg,#2563eb,#3b82f6)}
 .btn-sm{width:auto;padding:7px 14px;font-size:12px}
-
-/* LIMIT BAR */
+.btn:disabled{opacity:.5;cursor:not-allowed}
 .limit-wrap{margin-top:10px}
 .limit-info{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}
 .limit-bar-bg{background:var(--bg3);border-radius:6px;height:8px;overflow:hidden}
@@ -117,15 +91,11 @@ h1,h2,h3{font-family:'Syne',sans-serif}
 .limit-bar.warn{background:var(--gold)}
 .limit-bar.danger{background:var(--red)}
 .limit-text{font-size:12px;color:var(--muted);margin-top:6px}
-
-/* SAVINGS */
 .saving-progress{margin-top:4px}
 .saving-nums{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
 .progress-bg{background:var(--bg3);border-radius:8px;height:10px;overflow:hidden;margin-bottom:6px}
 .progress-fill{height:10px;border-radius:8px;background:linear-gradient(90deg,var(--purple),var(--accent));transition:width .5s ease}
 .progress-pct{font-size:12px;color:var(--muted);text-align:right}
-
-/* TRANSACTIONS */
 .txn-list{max-height:260px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .txn-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
 .txn-item:last-child{border-bottom:none}
@@ -133,7 +103,6 @@ h1,h2,h3{font-family:'Syne',sans-serif}
 .txn-icon.in{background:#1a2e1a}
 .txn-icon.out{background:#2e1a1a}
 .txn-icon.sav{background:#241a2e}
-.txn-icon.init{background:#1a2535}
 .txn-desc{flex:1;min-width:0}
 .txn-desc-text{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .txn-date{font-size:11px;color:var(--muted);margin-top:2px}
@@ -144,8 +113,6 @@ h1,h2,h3{font-family:'Syne',sans-serif}
 .txn-cat{font-size:10px;color:var(--muted);margin-top:1px;text-align:right}
 .empty-state{text-align:center;padding:24px;color:var(--muted);font-size:13px}
 .empty-emoji{font-size:28px;margin-bottom:8px}
-
-/* TOAST */
 .toast-container{position:fixed;top:80px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;font-size:13px;max-width:300px;animation:slide-in .3s ease;pointer-events:all;display:flex;align-items:flex-start;gap:10px}
 .toast.success{border-color:var(--green)}
@@ -156,37 +123,30 @@ h1,h2,h3{font-family:'Syne',sans-serif}
 .toast-msg{color:var(--muted);font-size:12px}
 @keyframes slide-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slide-out{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(20px)}}
-
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:24px;max-width:420px;width:100%;animation:modal-in .25s ease}
-@keyframes modal-in{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.modal-title{font-size:18px;font-weight:800}
-.modal-close{background:var(--bg3);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;transition:.2s}
-.modal-close:hover{color:var(--text);border-color:var(--accent)}
-
-/* ALL SANTRI TABLE */
 .summary-table{width:100%;border-collapse:collapse}
 .summary-table th{font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
 .summary-table td{padding:12px 12px;border-bottom:1px solid #1c2128;font-size:13px}
 .summary-table tr:hover td{background:var(--bg3)}
-
-/* DELETE btn */
 .del-btn{background:transparent;border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--red);font-size:11px;cursor:pointer;transition:.2s;font-family:inherit}
 .del-btn:hover{background:#2e1a1a;border-color:var(--red)}
-
-/* RESPONSIVE */
+.loading-overlay{position:fixed;inset:0;background:rgba(13,17,23,0.9);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--muted)}
 @media(max-width:600px){
   .main{padding:16px}
   .stats-row{grid-template-columns:1fr 1fr}
   .form-row{grid-template-columns:1fr}
   .header-stats{display:none}
-  .detail-header{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 <body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Menghubungkan ke database...</div>
+</div>
 
 <div class="header">
   <div class="header-inner">
@@ -197,38 +157,34 @@ h1,h2,h3{font-family:'Syne',sans-serif}
         <div class="logo-sub">Catatan Keuangan Santri</div>
       </div>
     </div>
-    <div class="header-stats" id="headerStats"></div>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div class="sync-status" id="syncStatus">
+        <div class="sync-dot" id="syncDot"></div>
+        <span id="syncText">Menghubungkan...</span>
+      </div>
+      <div class="header-stats" id="headerStats"></div>
+    </div>
   </div>
 </div>
 
 <div class="main">
-  <!-- SANTRI LIST VIEW -->
   <div id="listView">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
       <div>
         <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.5px">Semua Santri</h2>
         <p style="font-size:13px;color:var(--muted);margin-top:2px">Pilih santri untuk lihat detail keuangan</p>
       </div>
-      <button class="btn btn-blue btn-sm" onclick="showSummaryModal()">📊 Ringkasan Semua</button>
     </div>
     <div class="santri-grid" id="santriGrid"></div>
-
-    <!-- SUMMARY TABLE SECTION -->
     <div class="section-card">
       <div class="section-head">
         <div class="section-title">📋 Tabel Ringkasan Keuangan</div>
       </div>
       <div class="section-body" style="overflow-x:auto">
-        <table class="summary-table" id="summaryTableMain">
+        <table class="summary-table">
           <thead>
             <tr>
-              <th>Santri</th>
-              <th>Saldo</th>
-              <th>Total Masuk</th>
-              <th>Total Keluar</th>
-              <th>Tabungan</th>
-              <th>Target</th>
-              <th>Status Limit</th>
+              <th>Santri</th><th>Saldo</th><th>Total Masuk</th><th>Total Keluar</th><th>Tabungan</th><th>Target</th><th>Status Limit</th>
             </tr>
           </thead>
           <tbody id="summaryTableBody"></tbody>
@@ -237,23 +193,17 @@ h1,h2,h3{font-family:'Syne',sans-serif}
     </div>
   </div>
 
-  <!-- DETAIL VIEW -->
   <div class="detail" id="detailView">
     <button class="back-btn" onclick="backToList()">← Kembali</button>
-
     <div class="detail-header">
       <div class="detail-avatar" id="detailAvatar"></div>
       <div class="detail-info">
         <h2 id="detailName"></h2>
-        <p id="detailSub"></p>
+        <p id="detailSub">Santri Keuangan Pribadi</p>
       </div>
     </div>
-
-    <!-- STATS -->
     <div class="stats-row" id="statsRow"></div>
-
-    <!-- LIMIT SECTION FULL WIDTH -->
-    <div class="section-card" style="margin-bottom:16px" id="limitSection">
+    <div class="section-card" style="margin-bottom:16px">
       <div class="section-head">
         <div class="section-title">🚨 Limit Pengeluaran</div>
         <span class="section-badge badge-red" id="limitBadge"></span>
@@ -261,8 +211,8 @@ h1,h2,h3{font-family:'Syne',sans-serif}
       <div class="section-body">
         <div class="form-row">
           <div class="form-group" style="margin-bottom:0">
-            <label class="form-label">Set Limit (Rp)</label>
-            <input type="number" class="form-input" id="limitInput" placeholder="Contoh: 500000" oninput="previewLimit()">
+            <label class="form-label">Set Limit Bulanan (Rp)</label>
+            <input type="number" class="form-input" id="limitInput" placeholder="Contoh: 500000">
           </div>
           <div style="display:flex;align-items:flex-end">
             <button class="btn btn-red" onclick="setLimit()">Simpan Limit</button>
@@ -271,9 +221,7 @@ h1,h2,h3{font-family:'Syne',sans-serif}
         <div class="limit-wrap" id="limitWrap"></div>
       </div>
     </div>
-
     <div class="content-grid">
-      <!-- PEMASUKAN -->
       <div class="section-card">
         <div class="section-head">
           <div class="section-title">💰 Tambah Pemasukan</div>
@@ -301,8 +249,6 @@ h1,h2,h3{font-family:'Syne',sans-serif}
           <button class="btn btn-green" onclick="addTransaction('income')">+ Tambah Pemasukan</button>
         </div>
       </div>
-
-      <!-- PENGELUARAN -->
       <div class="section-card">
         <div class="section-head">
           <div class="section-title">🛒 Tambah Pengeluaran</div>
@@ -331,8 +277,6 @@ h1,h2,h3{font-family:'Syne',sans-serif}
           <button class="btn btn-red" onclick="addTransaction('expense')">− Tambah Pengeluaran</button>
         </div>
       </div>
-
-      <!-- TABUNGAN -->
       <div class="section-card">
         <div class="section-head">
           <div class="section-title">🏦 Tabungan</div>
@@ -372,8 +316,6 @@ h1,h2,h3{font-family:'Syne',sans-serif}
           </div>
         </div>
       </div>
-
-      <!-- RIWAYAT -->
       <div class="section-card">
         <div class="section-head">
           <div class="section-title">📜 Riwayat Transaksi</div>
@@ -387,166 +329,137 @@ h1,h2,h3{font-family:'Syne',sans-serif}
   </div>
 </div>
 
-<!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDcOOq49uZoGgdFG0pZhgkdhb-hsCvm44U",
+  authDomain: "kassantri-f0e0f.firebaseapp.com",
+  projectId: "kassantri-f0e0f",
+  storageBucket: "kassantri-f0e0f.firebasestorage.app",
+  messagingSenderId: "290838256735",
+  appId: "1:290838256735:web:209e2b078ca182c42ecfea",
+  measurementId: "G-KF00F2MBC0"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const SANTRI_LIST = ['Arsyad','Sinan','Mario','Fatih','Rijal','Fikar','Rafa'];
 const COLORS = ['#58a6ff','#3fb950','#d29922','#bc8cff','#f97316','#06b6d4','#ec4899'];
-const EMOJIS = ['🌙','⭐','📚','🕌','🌿','✨','🎓'];
-const STORAGE_KEY = 'kascantri_v2';
-
 let currentSantri = null;
-let data = {};
+let localData = {};
+let unsubscribers = {};
 
-function loadData(){
-  try{
-    const s=localStorage.getItem(STORAGE_KEY);
-    if(s) data=JSON.parse(s);
-    else initData();
-  }catch(e){initData()}
+function formatRp(n){return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',minimumFractionDigits:0,maximumFractionDigits:0}).format(n||0)}
+function formatDate(d){return new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+
+function setSyncStatus(state){
+  const dot=document.getElementById('syncDot');
+  const text=document.getElementById('syncText');
+  if(state==='online'){dot.className='sync-dot online';text.textContent='Tersinkron'}
+  else if(state==='syncing'){dot.className='sync-dot syncing';text.textContent='Menyimpan...'}
+  else{dot.className='sync-dot';text.textContent='Offline'}
 }
 
-function initData(){
-  data={};
-  SANTRI_LIST.forEach(n=>{
-    data[n]={
-      transactions:[],
-      saving:0,
-      savingTarget:0,
-      limit:0,
-      monthExpense:0,
-      balance:0
-    };
+function getDefaultSantri(){return{transactions:[],saving:0,savingTarget:0,limit:0,balance:0}}
+
+async function initSantri(name){
+  const ref=doc(db,'santri',name);
+  const snap=await getDoc(ref);
+  if(!snap.exists()){await setDoc(ref,getDefaultSantri())}
+}
+
+function subscribeAll(){
+  SANTRI_LIST.forEach(name=>{
+    const ref=doc(db,'santri',name);
+    const unsub=onSnapshot(ref,(snap)=>{
+      if(snap.exists()){
+        localData[name]=snap.data();
+        if(!localData[name].transactions) localData[name].transactions=[];
+        renderSantriGrid();
+        if(currentSantri===name) renderDetail();
+        setSyncStatus('online');
+      }
+    },(err)=>{setSyncStatus('offline');console.error(err)});
+    unsubscribers[name]=unsub;
   });
-  saveData();
 }
 
-function saveData(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
-}
-
-function getSantri(name){
-  if(!data[name]) data[name]={transactions:[],saving:0,savingTarget:0,limit:0,monthExpense:0,balance:0};
-  return data[name];
+async function saveToFirebase(name){
+  setSyncStatus('syncing');
+  try{
+    const ref=doc(db,'santri',name);
+    await setDoc(ref,localData[name]);
+    setSyncStatus('online');
+  }catch(e){setSyncStatus('offline');showToast('error','Gagal Simpan','Periksa koneksi internet Anda.');console.error(e)}
 }
 
 function calcBalance(name){
-  const s=getSantri(name);
-  let bal=0;
-  s.transactions.forEach(t=>{
-    if(t.type==='income') bal+=t.amount;
-    else if(t.type==='expense') bal-=t.amount;
-  });
-  s.balance=bal;
-  return bal;
+  const s=localData[name];if(!s) return 0;
+  return(s.transactions||[]).reduce((a,t)=>t.type==='income'?a+t.amount:t.type==='expense'?a-t.amount:a,0);
 }
-
 function calcMonthExpense(name){
-  const s=getSantri(name);
+  const s=localData[name];if(!s) return 0;
   const now=new Date();
-  const month=now.getMonth();const year=now.getFullYear();
-  let total=0;
-  s.transactions.forEach(t=>{
-    if(t.type==='expense'){
-      const d=new Date(t.date);
-      if(d.getMonth()===month&&d.getFullYear()===year) total+=t.amount;
-    }
-  });
-  s.monthExpense=total;
-  return total;
+  return(s.transactions||[]).filter(t=>t.type==='expense'&&new Date(t.date).getMonth()===now.getMonth()&&new Date(t.date).getFullYear()===now.getFullYear()).reduce((a,t)=>a+t.amount,0);
 }
+function calcTotalIncome(name){return(localData[name]?.transactions||[]).filter(t=>t.type==='income').reduce((a,t)=>a+t.amount,0)}
+function calcTotalExpense(name){return(localData[name]?.transactions||[]).filter(t=>t.type==='expense').reduce((a,t)=>a+t.amount,0)}
 
-function calcTotalIncome(name){
-  const s=getSantri(name);
-  return s.transactions.filter(t=>t.type==='income').reduce((a,b)=>a+b.amount,0);
-}
-
-function calcTotalExpense(name){
-  const s=getSantri(name);
-  return s.transactions.filter(t=>t.type==='expense').reduce((a,b)=>a+b.amount,0);
-}
-
-function formatRp(n){return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',minimumFractionDigits:0,maximumFractionDigits:0}).format(n)}
-
-function formatDate(d){
-  const dt=new Date(d);
-  return dt.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-}
-
-function renderSantriGrid(){
+window.renderSantriGrid=function(){
   const grid=document.getElementById('santriGrid');
   grid.innerHTML='';
-  let totalBalance=0,totalSaving=0,alertCount=0;
+  let totalBal=0,totalSav=0,alerts=0;
   SANTRI_LIST.forEach((name,i)=>{
-    const s=getSantri(name);
+    const s=localData[name]||getDefaultSantri();
     const bal=calcBalance(name);
     const me=calcMonthExpense(name);
-    totalBalance+=bal;totalSaving+=s.saving;
-    const overLimit=s.limit>0&&me>s.limit;
-    if(overLimit) alertCount++;
+    totalBal+=bal;totalSav+=s.saving||0;
+    const over=s.limit>0&&me>s.limit;if(over) alerts++;
     const card=document.createElement('div');
     card.className='santri-card';
-    card.innerHTML=`
-      ${overLimit?'<div class="alert-dot"></div>':''}
+    card.innerHTML=`${over?'<div class="alert-dot"></div>':''}
       <div class="santri-avatar" style="background:${COLORS[i]}">${name[0]}</div>
       <div class="santri-name">${name}</div>
       <div class="santri-balance ${bal>=0?'pos':'neg'}">${formatRp(bal)}</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">Tabungan: ${formatRp(s.saving)}</div>
-    `;
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Tabungan: ${formatRp(s.saving||0)}</div>`;
     card.onclick=()=>openSantri(name);
     grid.appendChild(card);
   });
-  renderHeaderStats(totalBalance,totalSaving,alertCount);
+  const hs=document.getElementById('headerStats');
+  hs.innerHTML=`
+    <div class="hstat"><div class="hstat-label">Total Saldo</div><div class="hstat-value" style="color:var(--green)">${formatRp(totalBal)}</div></div>
+    <div class="hstat"><div class="hstat-label">Total Tabungan</div><div class="hstat-value" style="color:var(--purple)">${formatRp(totalSav)}</div></div>
+    <div class="hstat"><div class="hstat-label">Alert Limit</div><div class="hstat-value" style="color:${alerts>0?'var(--red)':'var(--green)'}">${alerts} Santri</div></div>`;
   renderSummaryTable();
-}
-
-function renderHeaderStats(totalBalance,totalSaving,alertCount){
-  const el=document.getElementById('headerStats');
-  el.innerHTML=`
-    <div class="hstat">
-      <div class="hstat-label">Total Saldo</div>
-      <div class="hstat-value" style="color:var(--green)">${formatRp(totalBalance)}</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-label">Total Tabungan</div>
-      <div class="hstat-value" style="color:var(--purple)">${formatRp(totalSaving)}</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-label">Alert Limit</div>
-      <div class="hstat-value" style="color:${alertCount>0?'var(--red)':'var(--green)'}">${alertCount} Santri</div>
-    </div>
-  `;
 }
 
 function renderSummaryTable(){
   const tbody=document.getElementById('summaryTableBody');
   tbody.innerHTML='';
   SANTRI_LIST.forEach((name,i)=>{
-    const s=getSantri(name);
+    const s=localData[name]||getDefaultSantri();
     const bal=calcBalance(name);
     const me=calcMonthExpense(name);
-    const ti=calcTotalIncome(name);
-    const te=calcTotalExpense(name);
-    const overLimit=s.limit>0&&me>s.limit;
-    const pct=s.savingTarget>0?Math.round((s.saving/s.savingTarget)*100):'-';
+    const over=s.limit>0&&me>s.limit;
+    const pct=s.savingTarget>0?Math.round(((s.saving||0)/s.savingTarget)*100):'-';
     const tr=document.createElement('tr');
-    tr.innerHTML=`
-      <td><div style="display:flex;align-items:center;gap:8px">
-        <div style="width:28px;height:28px;border-radius:50%;background:${COLORS[i]};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">${name[0]}</div>
-        <span style="font-weight:600">${name}</span></div></td>
-      <td style="color:${bal>=0?'var(--green)':'var(--red)'}; font-weight:700">${formatRp(bal)}</td>
-      <td style="color:var(--green)">${formatRp(ti)}</td>
-      <td style="color:var(--red)">${formatRp(te)}</td>
-      <td style="color:var(--purple)">${formatRp(s.saving)}</td>
+    tr.innerHTML=`<td><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;border-radius:50%;background:${COLORS[i]};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff">${name[0]}</div><span style="font-weight:600">${name}</span></div></td>
+      <td style="color:${bal>=0?'var(--green)':'var(--red)'};font-weight:700">${formatRp(bal)}</td>
+      <td style="color:var(--green)">${formatRp(calcTotalIncome(name))}</td>
+      <td style="color:var(--red)">${formatRp(calcTotalExpense(name))}</td>
+      <td style="color:var(--purple)">${formatRp(s.saving||0)}</td>
       <td style="color:var(--muted)">${s.savingTarget>0?formatRp(s.savingTarget)+' ('+pct+'%)':'-'}</td>
-      <td>${s.limit>0?(overLimit?'<span style="color:var(--red);font-weight:700">⚠ Melebihi</span>':'<span style="color:var(--green)">✓ Aman</span>'):'<span style="color:var(--muted)">Belum diset</span>'}</td>
-    `;
+      <td>${s.limit>0?(over?'<span style="color:var(--red);font-weight:700">⚠ Melebihi</span>':'<span style="color:var(--green)">✓ Aman</span>'):'<span style="color:var(--muted)">Belum diset</span>'}</td>`;
     tbody.appendChild(tr);
   });
 }
 
-function openSantri(name){
+window.openSantri=function(name){
   currentSantri=name;
   const idx=SANTRI_LIST.indexOf(name);
   document.getElementById('listView').style.display='none';
@@ -554,217 +467,167 @@ function openSantri(name){
   document.getElementById('detailAvatar').style.background=COLORS[idx];
   document.getElementById('detailAvatar').textContent=name[0];
   document.getElementById('detailName').textContent=name;
-  document.getElementById('detailSub').textContent='Santri Keuangan Pribadi';
   renderDetail();
 }
 
-function backToList(){
+window.backToList=function(){
   currentSantri=null;
   document.getElementById('listView').style.display='block';
   document.getElementById('detailView').classList.remove('show');
-  renderSantriGrid();
 }
 
-function renderDetail(){
+window.renderDetail=function(){
   if(!currentSantri) return;
-  const s=getSantri(currentSantri);
+  const s=localData[currentSantri]||getDefaultSantri();
   const bal=calcBalance(currentSantri);
   const me=calcMonthExpense(currentSantri);
-  const ti=calcTotalIncome(currentSantri);
-  const te=calcTotalExpense(currentSantri);
-
-  // STATS
-  const statsRow=document.getElementById('statsRow');
-  statsRow.innerHTML=`
-    <div class="stat-box">
-      <div class="stat-label">💵 Saldo Sekarang</div>
-      <div class="stat-value" style="color:${bal>=0?'var(--green)':'var(--red)'}">${formatRp(bal)}</div>
-      <div class="stat-sub">${s.transactions.length} transaksi</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">📈 Total Pemasukan</div>
-      <div class="stat-value" style="color:var(--green)">${formatRp(ti)}</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">📉 Total Pengeluaran</div>
-      <div class="stat-value" style="color:var(--red)">${formatRp(te)}</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">🏦 Total Tabungan</div>
-      <div class="stat-value" style="color:var(--purple)">${formatRp(s.saving)}</div>
-      <div class="stat-sub">${s.savingTarget>0?'Target: '+formatRp(s.savingTarget):'Belum ada target'}</div>
-    </div>
-  `;
-
-  // LIMIT
-  const limitBadge=document.getElementById('limitBadge');
-  const limitWrap=document.getElementById('limitWrap');
-  const limitInput=document.getElementById('limitInput');
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat-box"><div class="stat-label">💵 Saldo Sekarang</div><div class="stat-value" style="color:${bal>=0?'var(--green)':'var(--red)'}">${formatRp(bal)}</div><div class="stat-sub">${(s.transactions||[]).length} transaksi</div></div>
+    <div class="stat-box"><div class="stat-label">📈 Total Pemasukan</div><div class="stat-value" style="color:var(--green)">${formatRp(calcTotalIncome(currentSantri))}</div></div>
+    <div class="stat-box"><div class="stat-label">📉 Total Pengeluaran</div><div class="stat-value" style="color:var(--red)">${formatRp(calcTotalExpense(currentSantri))}</div></div>
+    <div class="stat-box"><div class="stat-label">🏦 Total Tabungan</div><div class="stat-value" style="color:var(--purple)">${formatRp(s.saving||0)}</div><div class="stat-sub">${s.savingTarget>0?'Target: '+formatRp(s.savingTarget):'Belum ada target'}</div></div>`;
+  const lb=document.getElementById('limitBadge');
+  const lw=document.getElementById('limitWrap');
   if(s.limit>0){
-    limitInput.value=s.limit;
+    document.getElementById('limitInput').value=s.limit;
     const pct=Math.min((me/s.limit)*100,100);
-    const barClass=pct>=100?'danger':pct>=75?'warn':'';
-    limitBadge.textContent=s.limit>0&&me>s.limit?'⚠ MELEBIHI LIMIT!':'Aman';
-    limitBadge.className='section-badge '+(me>s.limit?'badge-red':'badge-green');
-    limitWrap.innerHTML=`
-      <div class="limit-info">
-        <span>Pengeluaran Bulan Ini: <strong style="color:var(--red)">${formatRp(me)}</strong></span>
-        <span>Limit: <strong>${formatRp(s.limit)}</strong></span>
-      </div>
-      <div class="limit-bar-bg"><div class="limit-bar ${barClass}" style="width:${Math.min(pct,100)}%"></div></div>
-      <div class="limit-text">${pct.toFixed(1)}% dari limit terpenuhi</div>
-    `;
+    lb.textContent=me>s.limit?'⚠ MELEBIHI LIMIT!':'Aman';
+    lb.className='section-badge '+(me>s.limit?'badge-red':'badge-green');
+    lw.innerHTML=`<div class="limit-info"><span>Bulan Ini: <strong style="color:var(--red)">${formatRp(me)}</strong></span><span>Limit: <strong>${formatRp(s.limit)}</strong></span></div>
+      <div class="limit-bar-bg"><div class="limit-bar ${pct>=100?'danger':pct>=75?'warn':''}" style="width:${Math.min(pct,100)}%"></div></div>
+      <div class="limit-text">${pct.toFixed(1)}% dari limit</div>`;
   } else {
-    limitBadge.textContent='Belum diset';
-    limitBadge.className='section-badge badge-gold';
-    limitWrap.innerHTML=`<div style="font-size:12px;color:var(--muted);margin-top:8px">Set limit pengeluaran bulanan untuk mendapat notifikasi jika melebihi batas.</div>`;
+    lb.textContent='Belum diset';lb.className='section-badge badge-gold';
+    lw.innerHTML=`<div style="font-size:12px;color:var(--muted);margin-top:8px">Set limit pengeluaran bulanan untuk mendapat notifikasi.</div>`;
   }
-
-  // SAVING PROGRESS
   const sp=document.getElementById('savingProgress');
   if(s.savingTarget>0){
-    const pct=Math.min((s.saving/s.savingTarget)*100,100);
+    const pct=Math.min(((s.saving||0)/s.savingTarget)*100,100);
     document.getElementById('savingTarget').value=s.savingTarget;
-    sp.innerHTML=`
-      <div class="saving-nums">
-        <span>Terkumpul: <strong style="color:var(--purple)">${formatRp(s.saving)}</strong></span>
-        <span>Target: <strong>${formatRp(s.savingTarget)}</strong></span>
-      </div>
+    sp.innerHTML=`<div class="saving-nums"><span>Terkumpul: <strong style="color:var(--purple)">${formatRp(s.saving||0)}</strong></span><span>Target: <strong>${formatRp(s.savingTarget)}</strong></span></div>
       <div class="progress-bg"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div class="progress-pct">${pct.toFixed(1)}% tercapai${pct>=100?' 🎉':''}</div>
-    `;
+      <div class="progress-pct">${pct.toFixed(1)}% tercapai${pct>=100?' 🎉':''}</div>`;
   } else {
-    sp.innerHTML=`<div style="font-size:12px;color:var(--muted)">Belum ada target tabungan. Set target di bawah.</div>`;
+    sp.innerHTML=`<div style="font-size:12px;color:var(--muted)">Belum ada target tabungan.</div>`;
   }
-
-  // TRANSACTIONS
   const txnList=document.getElementById('txnList');
-  document.getElementById('txnCount').textContent=s.transactions.length+' transaksi';
-  if(s.transactions.length===0){
+  document.getElementById('txnCount').textContent=(s.transactions||[]).length+' transaksi';
+  if(!(s.transactions||[]).length){
     txnList.innerHTML=`<div class="empty-state"><div class="empty-emoji">📭</div>Belum ada transaksi</div>`;
   } else {
-    const sorted=[...s.transactions].sort((a,b)=>new Date(b.date)-new Date(a.date));
-    txnList.innerHTML=sorted.map((t,i)=>`
+    const sorted=[...(s.transactions||[])].sort((a,b)=>new Date(b.date)-new Date(a.date));
+    txnList.innerHTML=sorted.map(t=>`
       <div class="txn-item">
-        <div class="txn-icon ${t.type==='income'?'in':t.type==='saving'?'sav':t.type==='init'?'init':'out'}">
-          ${t.type==='income'?'💰':t.type==='saving'?'🏦':t.type==='init'?'🌱':'🛒'}
-        </div>
-        <div class="txn-desc">
-          <div class="txn-desc-text">${t.desc}</div>
-          <div class="txn-date">${formatDate(t.date)}</div>
-        </div>
+        <div class="txn-icon ${t.type==='income'?'in':t.type==='saving'?'sav':'out'}">${t.type==='income'?'💰':t.type==='saving'?'🏦':'🛒'}</div>
+        <div class="txn-desc"><div class="txn-desc-text">${t.desc}</div><div class="txn-date">${formatDate(t.date)}</div></div>
         <div>
-          <div class="txn-amount ${t.type==='income'||t.type==='init'?'pos':t.type==='saving'?'sav':'neg'}">
-            ${t.type==='income'||t.type==='init'?'+':'-'}${formatRp(t.amount)}
-          </div>
+          <div class="txn-amount ${t.type==='income'?'pos':t.type==='saving'?'sav':'neg'}">${t.type==='income'?'+':'-'}${formatRp(t.amount)}</div>
           <div class="txn-cat">${t.category||''}</div>
         </div>
-        <button class="del-btn" onclick="deleteTxn('${currentSantri}','${t.id}')">✕</button>
-      </div>
-    `).join('');
+        <button class="del-btn" onclick="deleteTxn('${t.id}')">✕</button>
+      </div>`).join('');
   }
 }
 
-function addTransaction(type){
-  const amtId=type==='income'?'incomeAmount':'expenseAmount';
-  const descId=type==='income'?'incomeDesc':'expenseDesc';
-  const catId=type==='income'?'incomeCat':'expenseCat';
-  const amt=parseFloat(document.getElementById(amtId).value);
-  const desc=document.getElementById(descId).value.trim();
-  const cat=document.getElementById(catId).value;
+window.addTransaction=async function(type){
+  const aId=type==='income'?'incomeAmount':'expenseAmount';
+  const dId=type==='income'?'incomeDesc':'expenseDesc';
+  const cId=type==='income'?'incomeCat':'expenseCat';
+  const amt=parseFloat(document.getElementById(aId).value);
+  const desc=document.getElementById(dId).value.trim();
+  const cat=document.getElementById(cId).value;
   if(!amt||amt<=0){showToast('error','Input Salah','Masukkan jumlah yang valid!');return}
   if(!desc){showToast('error','Input Salah','Masukkan keterangan transaksi!');return}
-  const s=getSantri(currentSantri);
-  const txn={id:Date.now().toString(),type,amount:amt,desc,category:cat,date:new Date().toISOString()};
-  s.transactions.push(txn);
-  const bal=calcBalance(currentSantri);
-  if(type==='expense'){
-    const me=calcMonthExpense(currentSantri);
-    if(s.limit>0&&me>s.limit){
-      showToast('warning','⚠️ Melebihi Limit!',`Pengeluaran bulan ini ${formatRp(me)} melebihi limit ${formatRp(s.limit)}!`);
-    } else {
-      showToast('success','Pengeluaran Dicatat',`${formatRp(amt)} berhasil dicatat. Saldo: ${formatRp(bal)}`);
-    }
+  const s=localData[currentSantri]||getDefaultSantri();
+  if(!s.transactions) s.transactions=[];
+  s.transactions.push({id:Date.now().toString(),type,amount:amt,desc,category:cat,date:new Date().toISOString()});
+  localData[currentSantri]=s;
+  document.getElementById(aId).value='';
+  document.getElementById(dId).value='';
+  await saveToFirebase(currentSantri);
+  const me=calcMonthExpense(currentSantri);
+  if(type==='expense'&&s.limit>0&&me>s.limit){
+    showToast('warning','⚠️ Melebihi Limit!',`Pengeluaran bulan ini ${formatRp(me)} melebihi limit ${formatRp(s.limit)}!`);
   } else {
-    showToast('success','Pemasukan Dicatat',`${formatRp(amt)} berhasil ditambahkan. Saldo: ${formatRp(bal)}`);
+    showToast('success',type==='income'?'Pemasukan Dicatat':'Pengeluaran Dicatat',`${formatRp(amt)} berhasil dicatat.`);
   }
-  document.getElementById(amtId).value='';
-  document.getElementById(descId).value='';
-  saveData();renderDetail();
 }
 
-function deleteTxn(name,id){
-  const s=getSantri(name);
+window.deleteTxn=async function(id){
+  const s=localData[currentSantri];
   s.transactions=s.transactions.filter(t=>t.id!==id);
-  saveData();renderDetail();
+  await saveToFirebase(currentSantri);
   showToast('success','Dihapus','Transaksi berhasil dihapus.');
 }
 
-function setLimit(){
+window.setLimit=async function(){
   const val=parseFloat(document.getElementById('limitInput').value);
   if(!val||val<=0){showToast('error','Input Salah','Masukkan nilai limit yang valid!');return}
-  const s=getSantri(currentSantri);
-  s.limit=val;
-  saveData();renderDetail();
-  showToast('success','Limit Disimpan',`Limit pengeluaran diset ke ${formatRp(val)}`);
+  localData[currentSantri].limit=val;
+  await saveToFirebase(currentSantri);
+  showToast('success','Limit Disimpan',`Limit diset ke ${formatRp(val)}`);
 }
 
-function previewLimit(){}
-
-function setSavingTarget(){
+window.setSavingTarget=async function(){
   const val=parseFloat(document.getElementById('savingTarget').value);
   if(!val||val<=0){showToast('error','Input Salah','Masukkan nilai target yang valid!');return}
-  const s=getSantri(currentSantri);
-  s.savingTarget=val;
-  saveData();renderDetail();
-  showToast('success','Target Diset',`Target tabungan ${formatRp(val)} berhasil disimpan!`);
+  localData[currentSantri].savingTarget=val;
+  await saveToFirebase(currentSantri);
+  showToast('success','Target Diset',`Target tabungan ${formatRp(val)} disimpan!`);
 }
 
-function addSaving(){
+window.addSaving=async function(){
   const val=parseFloat(document.getElementById('savingAmount').value);
   if(!val||val<=0){showToast('error','Input Salah','Masukkan jumlah tabungan!');return}
-  const s=getSantri(currentSantri);
   const bal=calcBalance(currentSantri);
   if(val>bal){showToast('error','Saldo Kurang',`Saldo tidak cukup (${formatRp(bal)})`);return}
-  s.saving+=val;
+  const s=localData[currentSantri];
+  s.saving=(s.saving||0)+val;
   s.transactions.push({id:Date.now().toString(),type:'saving',amount:val,desc:'Nabung tabungan',category:'Tabungan',date:new Date().toISOString()});
-  saveData();renderDetail();
+  await saveToFirebase(currentSantri);
   document.getElementById('savingAmount').value='';
   const pct=s.savingTarget>0?(s.saving/s.savingTarget)*100:0;
-  if(pct>=100) showToast('success','🎉 Target Tercapai!',`Selamat! Target tabungan ${formatRp(s.savingTarget)} sudah tercapai!`);
-  else showToast('success','Tabungan Ditambah',`${formatRp(val)} masuk tabungan. Total: ${formatRp(s.saving)}`);
+  if(pct>=100) showToast('success','🎉 Target Tercapai!',`Target tabungan ${formatRp(s.savingTarget)} sudah tercapai!`);
+  else showToast('success','Tabungan Ditambah',`${formatRp(val)} masuk tabungan.`);
 }
 
-function withdrawSaving(){
+window.withdrawSaving=async function(){
   const val=parseFloat(document.getElementById('savingWithdraw').value);
   if(!val||val<=0){showToast('error','Input Salah','Masukkan jumlah yang ingin diambil!');return}
-  const s=getSantri(currentSantri);
-  if(val>s.saving){showToast('error','Tabungan Kurang',`Tabungan hanya ${formatRp(s.saving)}`);return}
+  const s=localData[currentSantri];
+  if(val>(s.saving||0)){showToast('error','Tabungan Kurang',`Tabungan hanya ${formatRp(s.saving||0)}`);return}
   s.saving-=val;
   s.transactions.push({id:Date.now().toString(),type:'income',amount:val,desc:'Ambil tabungan',category:'Tabungan',date:new Date().toISOString()});
-  saveData();renderDetail();
+  await saveToFirebase(currentSantri);
   document.getElementById('savingWithdraw').value='';
-  showToast('success','Tabungan Diambil',`${formatRp(val)} berhasil diambil dari tabungan.`);
+  showToast('success','Tabungan Diambil',`${formatRp(val)} berhasil diambil.`);
 }
 
-function showToast(type,title,msg){
-  const container=document.getElementById('toastContainer');
+window.showToast=function(type,title,msg){
+  const c=document.getElementById('toastContainer');
   const icons={success:'✅',error:'❌',warning:'⚠️'};
-  const toast=document.createElement('div');
-  toast.className=`toast ${type}`;
-  toast.innerHTML=`<div class="toast-icon">${icons[type]||'ℹ️'}</div><div><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>`;
-  container.appendChild(toast);
-  setTimeout(()=>{
-    toast.style.animation='slide-out .3s ease forwards';
-    setTimeout(()=>toast.remove(),300);
-  },type==='warning'?5000:3500);
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  t.innerHTML=`<div class="toast-icon">${icons[type]||'ℹ️'}</div><div><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>`;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.animation='slide-out .3s ease forwards';setTimeout(()=>t.remove(),300)},type==='warning'?5000:3500);
 }
 
-function showSummaryModal(){}
+async function init(){
+  try{
+    await Promise.all(SANTRI_LIST.map(name=>initSantri(name)));
+    subscribeAll();
+    document.getElementById('loadingOverlay').style.display='none';
+    setSyncStatus('online');
+  }catch(e){
+    document.getElementById('loadingOverlay').style.display='none';
+    setSyncStatus('offline');
+    showToast('error','Koneksi Gagal','Pastikan Firestore sudah diaktifkan.');
+    console.error(e);
+  }
+}
 
-// INIT
-loadData();
-renderSantriGrid();
+init();
 </script>
 </body>
 </html>
